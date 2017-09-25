@@ -1,0 +1,93 @@
+.red {
+  background-color: red;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.green {
+  background-color: green;
+}
+
+.purple {
+  background-color: purple;
+}
+
+.fill-vertical {
+  height: 100vh;
+}
+
+.chat-body {
+  height: calc(100% - 50px);
+}
+
+.full-height {
+  height: 100%;
+}
+
+.logo-bar {
+  height: 50px;
+}
+
+.channel-list {
+
+}
+
+.channel-list-item {
+
+}
+
+.user-info-box {
+  height: 100%;
+  vertical-align: middle;
+  text-align: right;
+}
+
+.chat-window {
+  height: calc(100% - 100px);
+}
+
+.channel-title {
+  height: 50px;
+}
+
+.message-history {
+  vertical-align: bottom;
+  width: 100%;
+}
+
+.message {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  max-width: 80%;
+}
+
+.timestamp {
+  font-size: 8px;
+  color: #999;
+  margin: 3px;
+}
+
+.user-name {
+  font-weight: bold;
+  margin: 3px;
+}
+
+.message-body {
+  padding: 5px;
+}
+
+.text-input {
+  height: 50px;
+}
