@@ -2,8 +2,6 @@ import React from 'react'
 import UserListItem from './user_list_item'
 
 export default (props) => {
-  if (!props.users)
-    props = { users: [] }
   return (
     <div>
       <h3>Users</h3>

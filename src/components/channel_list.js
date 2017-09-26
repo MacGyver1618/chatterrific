@@ -2,8 +2,6 @@ import React from 'react'
 import ChannelListItem from './channel_list_item'
 
 export default (props) => {
-  if (!props)
-    props = { channels: []}
   return (
     <div>
       <h3>Channel list</h3>
