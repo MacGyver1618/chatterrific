@@ -1,9 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
 import TitleBar from './components/title_bar'
 import ChannelList from './components/channel_list'
 import ChatWindow from './components/chat_window'
+
+import rootReducer from './reducers/root_reducer'
 
 
 var state = {
@@ -74,5 +78,10 @@ const App = () => (
   </div>
 )
 
+var store = createStore(rootReducer)
+
 const target = document.querySelector("#app")
-ReactDOM.render(<App />, target)
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>, target)

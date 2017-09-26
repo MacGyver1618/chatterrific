@@ -1,19 +1,17 @@
-const placeholder = {
-  channels: [
-    {
-      name: "foo",
-      key: "a"
-    },
-    {
-      name: "bar",
-      key: "b"
-    },
-    {
-      name: "baz",
-      key: "c"
-    }
-  ]
-}
+const placeholder = [
+  {
+    name: "foo",
+    key: "a"
+  },
+  {
+    name: "bar",
+    key: "b"
+  },
+  {
+    name: "baz",
+    key: "c"
+  }
+]
 
 export default (state = placeholder, action) => {
   switch(action.type) {
