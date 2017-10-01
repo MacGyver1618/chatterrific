@@ -1,15 +1,35 @@
 const placeholder = [
   {
     name: "foo",
-    key: "a"
+    users: [{
+      name: "Joni"
+    }],
+    messages: []
   },
   {
     name: "bar",
-    key: "b"
+    users: [
+      {
+        name: "Joni"
+      },
+      {
+        name: "Kati"
+      }],
+    messages: []
   },
   {
     name: "baz",
-    key: "c"
+    users: [
+      {
+        name: "Joni"
+      },
+      {
+        name: "Kati"
+      },
+      {
+        name: "Ölli"
+      }],
+    messages: []
   }
 ]
 

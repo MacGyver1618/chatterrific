@@ -1,8 +1,14 @@
 import io from 'socket.io-client'
 
-var placeholder = {
-  //TODO parametrize URL
-  socket: io.connect('localhost:6680')
-}
+var placeholder = io.connect('localhost:6680')
 
-export default (state = placeholder, action) => state
+export default (socket = placeholder, action) => {
+  switch (action.type) {
+    case 'POST_MESSAGE':
+      socket.emit('room message', {
+        room: "foo",
+        message: "hiya"
+      })
+  }
+  return socket
+}
