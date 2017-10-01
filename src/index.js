@@ -58,9 +58,7 @@ var state = {
 
 }
 
-/*
-var socket
-*/
+//TODO: Refactor out App to container format
 
 const App = () => (
   <div className="container-fluid full-height">

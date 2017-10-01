@@ -1,15 +1,20 @@
-var app = require('express')()
-var server = require('http').Server(app)
-var io = require('socket.io')(server)
+var express = require('express')
+var http = require('http')
+var socketIo = require('socket.io')
 var _ = require('lodash')
+var webpack = require('webpack')
+var webpackDevMiddleware = require('webpack-dev-middleware')
+var webpackConfig = require('./webpack.config.js')
 
 var users = {}
+var app = express()
+var server = http.Server(app)
+var io = socketIo(server)
+
+app.use(express.static(__dirname + '/public'))
+app.use(webpackDevMiddleware(webpack(webpackConfig)))
 
 server.listen(6680)
-
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html')
-})
 
 io.on('connection', (socket) => {
   console.log("connected on ", socket.id)
