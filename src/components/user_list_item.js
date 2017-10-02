@@ -1,3 +1,3 @@
 import React from 'react'
 
-export default (props) => <li className="list-group-item">{props.user.name}</li>
+export default ({user}) => <li className="list-group-item list-group-item-action clickable">{user.name}</li>

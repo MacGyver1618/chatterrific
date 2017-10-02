@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
     socket.leave(channel)
   })
   socket.on('room message', (message) => {
-    console.log("received room message to room", message.room )
+    console.log("received room message", message.message, "to room", message.room )
     io.in(message.room).emit('room message', message)
   })
   socket.on('change name', (name) => {

@@ -8,6 +8,9 @@ export function selectChannel(channel) {
 export function postMessage(channel, message) {
   return {
     type: 'POST_MESSAGE',
-    message
+    payload: {
+      room: channel,
+      message: message
+    }
   }
 }

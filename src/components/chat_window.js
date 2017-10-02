@@ -19,7 +19,7 @@ class ChatWindow extends Component {
             <ChatHistory messages={this.props.channel.messages}/>
           </div>
           <div className="row purple text-input">
-            <ChatInput />
+            <ChatInput channel={this.props.channel} />
           </div>
         </div>
         <div className="col-md-3 green">
