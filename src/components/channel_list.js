@@ -23,7 +23,7 @@ class ChannelList extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    channels: state.channels
+    channels: Object.values(state.channels)
   }
 }
 

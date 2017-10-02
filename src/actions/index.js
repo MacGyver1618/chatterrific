@@ -14,3 +14,10 @@ export function postMessage(channel, message) {
     }
   }
 }
+
+export function receiveMessage(message) {
+  return {
+    type: 'RECEIVE_MESSAGE',
+    message
+  }
+}

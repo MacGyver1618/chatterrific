@@ -6,7 +6,7 @@ export default (props) => {
     <div className="message-history">
       {
         props.messages.map(
-          (message) => <Message message={message} key={message.key} />
+          (message) => <Message message={message} key={message.message} />
         )
       }
     </div>

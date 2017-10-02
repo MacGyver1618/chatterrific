@@ -1,6 +1,6 @@
-import io from 'socket.io-client'
+import createSocket from '../socket/client_socket'
 
-var placeholder = io.connect('localhost:6680')
+var placeholder = createSocket()
 
 export default (socket = placeholder, action) => {
   switch (action.type) {

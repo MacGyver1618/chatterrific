@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
   })
   socket.on('room message', (message) => {
     console.log("received room message", message.message, "to room", message.room )
-    io.in(message.room).emit('room message', message)
+    io.in(message.room).emit('room message', {message: message.message, room: message.room, timestamp: new Date(), user: userFor(socket)})
   })
   socket.on('change name', (name) => {
     // if exists then return error else change and store name
@@ -51,5 +51,9 @@ io.on('connection', (socket) => {
     socket.to(target).emit('private message', message)
   })
 })
+
+function userFor(socket) {
+  return _.findKey(users, (value) => value === socket.id)
+}
 
 console.log("Listening on port 6680")
