@@ -15,7 +15,6 @@ export default (state = {}, action) => {
       var newChannel = {...state[channel], users: users.filter((user) => user.id !== action.payload.user.id)}
       return {...state, [channel]: newChannel}
     case 'RECEIVE_MESSAGE':
-      console.log("received message:", action)
       var channel = action.message.room
       var messages = state[channel].messages
       var newChannel = {...state[channel], messages: [...messages, action.message]}
