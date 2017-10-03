@@ -1,49 +1,18 @@
 import _ from 'lodash'
 
-const placeholder = _.keyBy([
-  {
-    name: "foo",
-    users: [{
-      name: "Joni"
-    }],
-    messages: []
-  },
-  {
-    name: "bar",
-    users: [
-      {
-        name: "Joni"
-      },
-      {
-        name: "Kati"
-      }],
-    messages: []
-  },
-  {
-    name: "baz",
-    users: [
-      {
-        name: "Joni"
-      },
-      {
-        name: "Kati"
-      },
-      {
-        name: "Ölli"
-      }],
-    messages: []
-  }
-], 'name')
-
-export default (state = placeholder, action) => {
+export default (state = {}, action) => {
   switch(action.type) {
-    case 'JOIN_CHANNEL':
-      return state.concat(action.channel)
+    case 'ADD_CHANNEL':
+      return {...state, [action.channel.name]: action.channel}
+    case 'NEW_CHANNEL_USER':
+      var channel = action.payload.channel
+      var users = state[channel].users
+      var newChannel = {...state[channel], users: [...users, action.payload.user]}
+      return {...state, [channel]: newChannel}
     case 'RECEIVE_MESSAGE':
       var channel = action.message.room
       var messages = state[channel].messages
       var newChannel = {...state[channel], messages: [...messages, action.message]}
-      console.log(newChannel)
       return {...state, [channel]: newChannel}
     default:
       return state

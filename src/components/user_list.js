@@ -8,7 +8,7 @@ export default (props) => {
       <ul className="list-group">
         {
           props.users.map(
-            (user) => <UserListItem user={user} key={user.name} />
+            (user) => <UserListItem user={user} key={user.id} />
           )
         }
       </ul>

@@ -7,6 +7,7 @@ var webpackDevMiddleware = require('webpack-dev-middleware')
 var webpackConfig = require('./webpack.config.js')
 
 var users = {}
+var channels = {}
 var app = express()
 var server = http.Server(app)
 var io = socketIo(server)
@@ -17,22 +18,23 @@ app.use(webpackDevMiddleware(webpack(webpackConfig)))
 server.listen(6680)
 
 io.on('connection', (socket) => {
-  console.log("connected on ", socket.id)
-  socket.on('message', (message) => {
-    console.log(message)
-  })
-  socket.on('disconnect', (socket) => {
-    console.log(socket.id, " disconnected")
-  })
-  socket.on('pong', (socket) => {
-    console.log("received ping from ", socket.id)
+  console.log(socket.id, "connected")
+  socket.on('disconnect', (reason) => {
+    Object.keys(socket.rooms).forEach((room) => {
+      io.in(room).broadcast.emit('left channel', userFor(socket))
+    })
+    console.log(socket.id, "disconnected", reason)
   })
   socket.on('join channel', (channel) => {
     socket.join(channel)
-    console.log(socket.id, " joined channel ", channel)
+    console.log(userFor(socket.id), "joined channel", channel)
+    socket.emit('joined channel', channelFor(channel))
+    socket.to(channel).emit('new channel user', {channel, user: userFor(socket.id)})
   })
   socket.on('leave channel', (channel) => {
     socket.leave(channel)
+    console.log(userFor(socket.id), "joined channel", channel)
+    io.in(channel).emit('left channel', {user: userFor(socket.id), channel: channelFor(channel)})
   })
   socket.on('room message', (message) => {
     console.log("received room message", message.message, "to room", message.room )
@@ -52,8 +54,13 @@ io.on('connection', (socket) => {
   })
 })
 
-function userFor(socket) {
-  return _.findKey(users, (value) => value === socket.id)
+function userFor(socketId) {
+  var name = _.findKey(users, (value) => value === socketId)
+  return {name, id: socketId}
+}
+
+function channelFor(channel) {
+  return {name: channel, users: Object.keys(io.in(channel).sockets).map((socket) => userFor(socket))}
 }
 
 console.log("Listening on port 6680")
