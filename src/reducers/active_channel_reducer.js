@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {store} from '../index'
 
 var placeholder = {
@@ -11,6 +12,10 @@ export default (channel = placeholder, action) => {
     case 'ADD_CHANNEL':
     case 'SELECT_CHANNEL':
       return action.channel
+    case 'USER_LEFT_CHANNEL':
+      if (action.payload.channel !== channel.name)
+        return channel
+      return {...channel, users: channel.users.filter((user) => user.id !== action.payload.user.id)}
     case 'NEW_CHANNEL_USER':
       if (action.payload.channel === channel.name)
         return {...channel, users: [...channel.users, action.payload.user]}

@@ -18,11 +18,13 @@ server.listen(6680)
 
 io.on('connection', (socket) => {
   console.log(socket.id, "connected")
-  socket.on('disconnect', (reason) => {
+  socket.on('disconnecting', (reason) => {
+    var user = userFor(socket.id)
     Object.keys(socket.rooms).forEach((room) => {
-      io.in(room).broadcast.emit('left channel', userFor(socket))
+      socket.to(room).emit('left channel', {channel: room, user})
     })
-    console.log(socket.id, "disconnected", reason)
+    users.delete(userFor(socket.id))
+    console.log(socket.id, "disconnected", "(" + reason + ")")
   })
   socket.on('join channel', (channel) => {
     socket.join(channel)

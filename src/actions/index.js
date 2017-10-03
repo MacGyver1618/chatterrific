@@ -19,6 +19,13 @@ export function newChannelUser(payload) {
   }
 }
 
+export function userLeftChannel(payload) {
+  return {
+    type: 'USER_LEFT_CHANNEL',
+    payload
+  }
+}
+
 export function postMessage(channel, message) {
   return {
     type: 'POST_MESSAGE',
