@@ -6,8 +6,7 @@ var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
 var webpackConfig = require('./webpack.config.js')
 
-var users = {}
-var channels = {}
+var users = new Map()
 var app = express()
 var server = http.Server(app)
 var io = socketIo(server)
@@ -41,9 +40,13 @@ io.on('connection', (socket) => {
     io.in(message.room).emit('room message', {message: message.message, room: message.room, timestamp: new Date(), user: userFor(socket)})
   })
   socket.on('change name', (name) => {
-    // if exists then return error else change and store name
-    users[name] = socket.id
-    console.log(users)
+    if (users[name])
+      socket.emit('name error', 'name already taken')
+    else {
+      users.delete(userFor(socket.id))
+      users[name] = socket.id
+      socket.emit('changed name', userFor(socket.id))
+    }
   })
   socket.on('private message', (message) => {
     // if user doesn't exist then error

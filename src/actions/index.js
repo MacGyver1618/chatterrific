@@ -35,3 +35,10 @@ export function receiveMessage(message) {
     message
   }
 }
+
+export function gotNewName(user) {
+  return {
+    type: 'GOT_NEW_NAME',
+    user
+  }
+}

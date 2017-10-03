@@ -8,6 +8,7 @@ var placeholder = {
 
 export default (channel = placeholder, action) => {
   switch(action.type) {
+    case 'ADD_CHANNEL':
     case 'SELECT_CHANNEL':
       return action.channel
     case 'NEW_CHANNEL_USER':

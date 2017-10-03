@@ -2,13 +2,14 @@ import _ from 'lodash'
 import io from 'socket.io-client'
 
 import {store} from '../index'
-import {receiveMessage, addChannel, newChannelUser} from '../actions/index'
+import {receiveMessage, addChannel, newChannelUser, gotNewName} from '../actions/index'
 
 export default function createSocket() {
   var socket = io.connect('localhost:6680')
   socket.on('room message', (message) => store.dispatch(receiveMessage(message)))
   socket.on('joined channel', (channel) => store.dispatch(addChannel(channel)))
   socket.on('new channel user', (payload) => store.dispatch(newChannelUser(payload)))
+  socket.on('changed name', (user) => store.dispatch(gotNewName(user)))
   //TODO: Remove autojoin
   socket.emit('change name', randomName())
   socket.emit('join channel', 'foo')

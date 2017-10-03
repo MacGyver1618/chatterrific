@@ -1,10 +1,8 @@
-const placeholder = { name: 'Joni' }
-
-export default (state = placeholder, action) => {
+export default (state = "", action) => {
   switch(action.type) {
-    case 'CHANGE_USERNAME':
-      return state
-      //return {...state, user.name = action.newName }
+    case 'GOT_NEW_NAME':
+      console.log(action)
+      return action.user
     default:
       return state
   }
