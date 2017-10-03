@@ -12,9 +12,10 @@ export default (state = {}, action) => {
     case 'USER_LEFT_CHANNEL':
       var channel = action.payload.channel
       var users = state[channel].users
-      var newChannel = {...state[channel], users: users.filter((user) => user.id !== action.payload.user.id)} 
+      var newChannel = {...state[channel], users: users.filter((user) => user.id !== action.payload.user.id)}
       return {...state, [channel]: newChannel}
     case 'RECEIVE_MESSAGE':
+      console.log("received message:", action)
       var channel = action.message.room
       var messages = state[channel].messages
       var newChannel = {...state[channel], messages: [...messages, action.message]}

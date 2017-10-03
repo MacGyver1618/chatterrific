@@ -23,7 +23,7 @@ io.on('connection', (socket) => {
     Object.keys(socket.rooms).forEach((room) => {
       socket.to(room).emit('left channel', {channel: room, user})
     })
-    users.delete(userFor(socket.id))
+    users.delete(user)
     console.log(socket.id, "disconnected", "(" + reason + ")")
   })
   socket.on('join channel', (channel) => {
@@ -35,11 +35,11 @@ io.on('connection', (socket) => {
   socket.on('leave channel', (channel) => {
     socket.leave(channel)
     console.log(userFor(socket.id), "joined channel", channel)
-    io.in(channel).emit('left channel', {user: userFor(socket.id), channel: channelFor(channel)})
+    io.in(channel).emit('left channel', {user: userFor(socket.id), channel})
   })
   socket.on('room message', (message) => {
     console.log("received room message", message.message, "to room", message.room )
-    io.in(message.room).emit('room message', {message: message.message, room: message.room, timestamp: new Date(), user: userFor(socket)})
+    io.in(message.room).emit('room message', {message: message.message, room: message.room, timestamp: new Date(), user: userFor(socket.id)})
   })
   socket.on('change name', (name) => {
     if (users[name])
