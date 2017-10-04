@@ -34,11 +34,11 @@ io.on('connection', (socket) => {
   })
   socket.on('leave channel', (channel) => {
     socket.leave(channel)
-    console.log(userFor(socket.id), "joined channel", channel)
+    console.log(userFor(socket.id), "left channel", channel)
     io.in(channel).emit('left channel', {user: userFor(socket.id), channel})
   })
   socket.on('room message', (message) => {
-    console.log("received room message", message.message, "to room", message.room )
+    console.log("received room message", "\"" + message.message + "\"", "from", userFor(socket.id).name, "to room", message.room )
     io.in(message.room).emit('room message', {message: message.message, room: message.room, timestamp: new Date(), user: userFor(socket.id)})
   })
   socket.on('change name', (name) => {
@@ -51,10 +51,7 @@ io.on('connection', (socket) => {
     }
   })
   socket.on('private message', (message) => {
-    // if user doesn't exist then error
-    console.log("reiceived private message ", message)
-    var target = users[message.user]
-    console.log("socket is ", target, " ", socket.to(target).id)
+    console.log("reiceived private message", message)
     socket.to(target).emit('private message', message)
   })
 })

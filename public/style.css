@@ -46,6 +46,10 @@
 
 }
 
+.scrolling {
+  overflow-y: scroll;
+}
+
 .user-info-box {
   height: 100%;
   vertical-align: middle;

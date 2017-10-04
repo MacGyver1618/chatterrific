@@ -12,18 +12,19 @@ export default (channel = placeholder, action) => {
     case 'ADD_CHANNEL':
     case 'SELECT_CHANNEL':
       return action.channel
+    case 'LEAVE_CHANNEL':
+      //TODO: return last channel in list
+      if (action.channel === channel.name) 
+        return placeholder
     case 'USER_LEFT_CHANNEL':
-      if (action.payload.channel !== channel.name)
-        return channel
-      return {...channel, users: channel.users.filter((user) => user.id !== action.payload.user.id)}
+      if (action.payload.channel === channel.name)
+        return {...channel, users: channel.users.filter((user) => user.id !== action.payload.user.id)}
     case 'NEW_CHANNEL_USER':
       if (action.payload.channel === channel.name)
         return {...channel, users: [...channel.users, action.payload.user]}
-      return channel
     case 'RECEIVE_MESSAGE':
       if (action.message.room === channel.name)
         return {...channel, messages: [...channel.messages, action.message]}
-      return channel
     default:
       return channel
   }

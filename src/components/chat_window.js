@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import ChannelTitle from './channel_title'
@@ -6,7 +6,7 @@ import ChatHistory from './chat_history'
 import ChatInput from './chat_input'
 import UserList from './user_list'
 
-class ChatWindow extends Component {
+class ChatWindow extends React.Component {
 
   render() {
     return (

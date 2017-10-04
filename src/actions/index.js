@@ -5,6 +5,13 @@ export function selectChannel(channel) {
   }
 }
 
+export function joinChannel(channel) {
+  return  {
+    type: 'JOIN_CHANNEL',
+    channel
+  }
+}
+
 export function addChannel(channel) {
   return {
     type: 'ADD_CHANNEL',
@@ -16,6 +23,13 @@ export function newChannelUser(payload) {
   return {
     type: 'NEW_CHANNEL_USER',
     payload
+  }
+}
+
+export function leaveChannel(channel) {
+  return  {
+    type: 'LEAVE_CHANNEL',
+    channel
   }
 }
 

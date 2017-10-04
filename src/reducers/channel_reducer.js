@@ -4,6 +4,10 @@ export default (state = {}, action) => {
   switch(action.type) {
     case 'ADD_CHANNEL':
       return {...state, [action.channel.name]: action.channel}
+    case 'LEAVE_CHANNEL':
+      var newState = Object.assign({}, state)
+      delete newState[action.channel]
+      return newState
     case 'NEW_CHANNEL_USER':
       var channel = action.payload.channel
       var users = state[channel].users

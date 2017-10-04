@@ -12,7 +12,6 @@ class ChatInput extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log("outgoing message", this.props.channel.name, this.state.message)
     this.props.postMessage(this.props.channel.name, this.state.message)
     this.setState({message: ''})
   }
