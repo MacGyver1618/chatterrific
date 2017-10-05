@@ -22,6 +22,14 @@ function joinMessage(payload) {
   }
 }
 
+function partMessage(payload) {
+  return {
+    ...payload,
+    type: 'NOTIFICATION_MESSAGE',
+    message: payload.from.name + " left channel " + payload.channel
+  }
+}
+
 export default (channel = placeholder, action) => {
   switch(action.type) {
     case 'JOINED_CHANNEL':
@@ -31,12 +39,20 @@ export default (channel = placeholder, action) => {
       //TODO: return last channel in list
       if (action.channel === channel.name)
         return placeholder
-    case 'USER_LEFT_CHANNEL':
-      if (action.payload.channel === channel.name)
-        return {...channel, users: channel.users.filter((user) => user.id !== action.payload.from.id)}
     case 'NEW_CHANNEL_USER':
       if (action.payload.channel === channel.name)
-        return {...channel, users: [...channel.users, action.payload.from], messages: [...channel.messages, joinMessage(action.payload)]}
+        return {
+          ...channel,
+          users: [...channel.users, action.payload.from],
+          messages: [...channel.messages, joinMessage(action.payload)]
+        }
+    case 'USER_LEFT_CHANNEL':
+      if (action.payload.channel === channel.name)
+        return {
+          ...channel,
+          users: channel.users.filter((user) => user.id !== action.payload.from.id),
+          messages: [...channel.messages, partMessage(action.payload)]
+        }
     case 'RECEIVE_MESSAGE':
       if (action.message.channel === channel.name)
         return {...channel, messages: [...channel.messages, chatMessage(action.message)]}

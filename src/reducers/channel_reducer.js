@@ -11,8 +11,15 @@ function joinMessage(payload) {
   return {
     ...payload,
     type: 'NOTIFICATION_MESSAGE',
-    timestamp: new Date().toLocaleString(),
     message: payload.from.name + " joined channel " + payload.channel
+  }
+}
+
+function partMessage(payload) {
+  return {
+    ...payload,
+    type: 'NOTIFICATION_MESSAGE',
+    message: payload.from.name + " left channel " + payload.channel
   }
 }
 
@@ -33,7 +40,8 @@ export default (state = {}, action) => {
     case 'USER_LEFT_CHANNEL':
       var channel = action.payload.channel
       var users = state[channel].users
-      var newChannel = {...state[channel], users: users.filter((user) => user.id !== action.payload.from.id)}
+      var messages = state[channel].messages
+      var newChannel = {...state[channel], users: users.filter((user) => user.id !== action.payload.from.id), messages: [...messages, partMessage(action.payload)]}
       return {...state, [channel]: newChannel}
     case 'RECEIVE_MESSAGE':
       var channel = action.message.channel
