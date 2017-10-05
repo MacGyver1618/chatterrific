@@ -11,7 +11,7 @@ export default (socket = placeholder, action) => {
       socket.emit('leave channel', action.channel)
       break
     case 'POST_MESSAGE':
-      socket.emit('room message', action.payload)
+      socket.emit('channel message', action.payload)
       break
   }
   return socket

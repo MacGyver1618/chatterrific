@@ -1,6 +1,7 @@
 var express = require('express')
 var http = require('http')
 var socketIo = require('socket.io')
+var uuid = require('uuid/v4')
 var _ = require('lodash')
 var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
@@ -17,29 +18,27 @@ app.use(webpackDevMiddleware(webpack(webpackConfig)))
 server.listen(6680)
 
 io.on('connection', (socket) => {
-  console.log(socket.id, "connected")
   socket.on('disconnecting', (reason) => {
     var user = userFor(socket.id)
     Object.keys(socket.rooms).forEach((room) => {
       socket.to(room).emit('left channel', {channel: room, user})
     })
     users.delete(user)
-    console.log(socket.id, "disconnected", "(" + reason + ")")
   })
   socket.on('join channel', (channel) => {
     socket.join(channel)
-    console.log(userFor(socket.id), "joined channel", channel)
     socket.emit('joined channel', channelFor(channel))
-    socket.to(channel).emit('new channel user', {channel, user: userFor(socket.id)})
+    socket.to(channel).emit('new channel user', stampOutgoing({channel}, socket.id))
   })
   socket.on('leave channel', (channel) => {
     socket.leave(channel)
-    console.log(userFor(socket.id), "left channel", channel)
-    io.in(channel).emit('left channel', {user: userFor(socket.id), channel})
+    io.to(channel).emit('left channel', stampOutgoing({channel}, socket.id))
   })
-  socket.on('room message', (message) => {
-    console.log("received room message", "\"" + message.message + "\"", "from", userFor(socket.id).name, "to room", message.room )
-    io.in(message.room).emit('room message', {message: message.message, room: message.room, timestamp: new Date(), user: userFor(socket.id)})
+  socket.on('channel message', (message) => {
+    io.to(message.channel).emit('channel message', stampOutgoing({
+      message: message.message,
+      channel: message.channel
+    }, socket.id))
   })
   socket.on('change name', (name) => {
     if (users[name])
@@ -51,10 +50,13 @@ io.on('connection', (socket) => {
     }
   })
   socket.on('private message', (message) => {
-    console.log("reiceived private message", message)
     socket.to(target).emit('private message', message)
   })
 })
+
+function stampOutgoing(payload, socketId) {
+  return Object.assign(payload, {from: userFor(socketId), timestamp: new Date(), id: uuid()})
+}
 
 function userFor(socketId) {
   var name = _.findKey(users, (value) => value === socketId)

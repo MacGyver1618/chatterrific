@@ -6,7 +6,7 @@ import {receiveMessage, joinedChannel, newChannelUser, gotNewName, userLeftChann
 
 export default function createSocket() {
   var socket = io.connect('http://192.168.0.108:6680')
-  socket.on('room message', (message) => store.dispatch(receiveMessage(message)))
+  socket.on('channel message', (message) => store.dispatch(receiveMessage(message)))
   socket.on('joined channel', (channel) => store.dispatch(joinedChannel(channel)))
   socket.on('new channel user', (payload) => store.dispatch(newChannelUser(payload)))
   socket.on('changed name', (user) => store.dispatch(gotNewName(user)))

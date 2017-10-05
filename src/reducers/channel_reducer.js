@@ -1,5 +1,21 @@
 import _ from 'lodash'
 
+function chatMessage(payload) {
+  return {
+    ...payload,
+    type: 'CHAT_MESSAGE'
+  }
+}
+
+function joinMessage(payload) {
+  return {
+    ...payload,
+    type: 'NOTIFICATION_MESSAGE',
+    timestamp: new Date().toLocaleString(),
+    message: payload.from.name + " joined channel " + payload.channel
+  }
+}
+
 export default (state = {}, action) => {
   switch(action.type) {
     case 'JOINED_CHANNEL':
@@ -11,17 +27,18 @@ export default (state = {}, action) => {
     case 'NEW_CHANNEL_USER':
       var channel = action.payload.channel
       var users = state[channel].users
-      var newChannel = {...state[channel], users: [...users, action.payload.user]}
+      var messages = state[channel].messages
+      var newChannel = {...state[channel], users: [...users, action.payload.from], messages: [...messages, joinMessage(action.payload)]}
       return {...state, [channel]: newChannel}
     case 'USER_LEFT_CHANNEL':
       var channel = action.payload.channel
       var users = state[channel].users
-      var newChannel = {...state[channel], users: users.filter((user) => user.id !== action.payload.user.id)}
+      var newChannel = {...state[channel], users: users.filter((user) => user.id !== action.payload.from.id)}
       return {...state, [channel]: newChannel}
     case 'RECEIVE_MESSAGE':
-      var channel = action.message.room
+      var channel = action.message.channel
       var messages = state[channel].messages
-      var newChannel = {...state[channel], messages: [...messages, action.message]}
+      var newChannel = {...state[channel], messages: [...messages, chatMessage(action.message)]}
       return {...state, [channel]: newChannel}
     default:
       return state

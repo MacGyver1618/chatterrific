@@ -21,7 +21,7 @@ class ChatHistory extends React.Component {
       <div className="message-history scrolling">
         {
           this.props.messages.map(
-            (message) => <Message message={message} key={message.user.id + message.timestamp} />
+            (message) => <Message message={message} key={message.id} />
           )
         }
       </div>

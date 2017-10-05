@@ -44,8 +44,8 @@ export function postMessage(channel, message) {
   return {
     type: 'POST_MESSAGE',
     payload: {
-      room: channel,
-      message: message
+      channel,
+      message
     }
   }
 }
