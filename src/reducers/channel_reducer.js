@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 export default (state = {}, action) => {
   switch(action.type) {
-    case 'ADD_CHANNEL':
+    case 'JOINED_CHANNEL':
       return {...state, [action.channel.name]: action.channel}
     case 'LEAVE_CHANNEL':
       var newState = Object.assign({}, state)

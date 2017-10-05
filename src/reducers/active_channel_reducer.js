@@ -9,12 +9,12 @@ var placeholder = {
 
 export default (channel = placeholder, action) => {
   switch(action.type) {
-    case 'ADD_CHANNEL':
+    case 'JOINED_CHANNEL':
     case 'SELECT_CHANNEL':
       return action.channel
     case 'LEAVE_CHANNEL':
       //TODO: return last channel in list
-      if (action.channel === channel.name) 
+      if (action.channel === channel.name)
         return placeholder
     case 'USER_LEFT_CHANNEL':
       if (action.payload.channel === channel.name)

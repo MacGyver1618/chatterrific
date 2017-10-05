@@ -12,9 +12,9 @@ export function joinChannel(channel) {
   }
 }
 
-export function addChannel(channel) {
+export function joinedChannel(channel) {
   return {
-    type: 'ADD_CHANNEL',
+    type: 'JOINED_CHANNEL',
     channel: {...channel, messages: []}
   }
 }
