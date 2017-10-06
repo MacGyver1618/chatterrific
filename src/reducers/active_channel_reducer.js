@@ -39,7 +39,7 @@ export default (channel = placeholder, action) => {
       //TODO: return last channel in list
       if (action.channel === channel.name)
         return placeholder
-    case 'NEW_CHANNEL_USER':
+    case 'USER_JOINED_CHANNEL':
       if (action.payload.channel === channel.name)
         return {
           ...channel,

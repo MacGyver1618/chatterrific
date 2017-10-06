@@ -23,6 +23,26 @@ function partMessage(payload) {
   }
 }
 
+function disconnectMessage(payload) {
+  return {
+    ...payload,
+    type: 'NOTIFICATION_MESSAGE',
+    message: payload.from.name + " disconnected"
+  }
+}
+
+function channelWithNewMessage(channel, message) {
+  return {...channel, messages: [...channel.messages, message]}
+}
+
+function channelWithNewUser(channel, user) {
+  return {...channel, users: [...channel.users, user]}
+}
+
+function channelWithoutUser(channel, userToRemove) {
+  return {...channel, users: channel.users.filter((user) => user.id !== userToRemove.id)}
+}
+
 export default (state = {}, action) => {
   switch(action.type) {
     case 'JOINED_CHANNEL':
@@ -31,23 +51,29 @@ export default (state = {}, action) => {
       var newState = Object.assign({}, state)
       delete newState[action.channel]
       return newState
-    case 'NEW_CHANNEL_USER':
-      var channel = action.payload.channel
-      var users = state[channel].users
-      var messages = state[channel].messages
-      var newChannel = {...state[channel], users: [...users, action.payload.from], messages: [...messages, joinMessage(action.payload)]}
-      return {...state, [channel]: newChannel}
+    case 'USER_JOINED_CHANNEL':
+      return {...state,
+        [action.payload.channel]: channelWithNewUser(
+          channelWithNewMessage(state[action.payload.channel], joinMessage(action.payload)),
+          action.payload.from)
+      }
     case 'USER_LEFT_CHANNEL':
-      var channel = action.payload.channel
-      var users = state[channel].users
-      var messages = state[channel].messages
-      var newChannel = {...state[channel], users: users.filter((user) => user.id !== action.payload.from.id), messages: [...messages, partMessage(action.payload)]}
-      return {...state, [channel]: newChannel}
+      var channelName = action.payload.channel
+      return {...state,
+        [action.payload.channel]: channelWithoutUser(
+          channelWithNewMessage(state[action.payload.channel], partMessage(action.payload)),
+          action.payload.from)
+      }
+    case 'USER_DISCONNECTED':
+      var channelName = action.payload.channel
+      return {...state,
+        [action.payload.channel]: channelWithoutUser(
+          channelWithNewMessage(state[action.payload.channel], disconnectMessage(action.payload)),
+          action.payload.from)
+      }
     case 'RECEIVE_MESSAGE':
-      var channel = action.message.channel
-      var messages = state[channel].messages
-      var newChannel = {...state[channel], messages: [...messages, chatMessage(action.message)]}
-      return {...state, [channel]: newChannel}
+      var channelName = action.payload.channel
+      return {...state, [channelName]: channelWithNewMessage(state[channelName], chatMessage(action.message))}
     default:
       return state
   }

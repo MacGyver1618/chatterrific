@@ -1,10 +1,3 @@
-export function selectChannel(channel) {
-  return {
-    type: 'SELECT_CHANNEL',
-    channel
-  }
-}
-
 export function joinChannel(channel) {
   return  {
     type: 'JOIN_CHANNEL',
@@ -19,13 +12,6 @@ export function joinedChannel(channel) {
   }
 }
 
-export function newChannelUser(payload) {
-  return {
-    type: 'NEW_CHANNEL_USER',
-    payload
-  }
-}
-
 export function leaveChannel(channel) {
   return  {
     type: 'LEAVE_CHANNEL',
@@ -33,9 +19,30 @@ export function leaveChannel(channel) {
   }
 }
 
+export function selectChannel(channel) {
+  return {
+    type: 'SELECT_CHANNEL',
+    channel
+  }
+}
+
+export function userJoinedChannel(payload) {
+  return {
+    type: 'USER_JOINED_CHANNEL',
+    payload
+  }
+}
+
 export function userLeftChannel(payload) {
   return {
     type: 'USER_LEFT_CHANNEL',
+    payload
+  }
+}
+
+export function userDisconnected(payload) {
+  return {
+    type: 'USER_DISCONNECTED',
     payload
   }
 }

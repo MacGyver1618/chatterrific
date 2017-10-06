@@ -21,18 +21,18 @@ io.on('connection', (socket) => {
   socket.on('disconnecting', (reason) => {
     var user = userFor(socket.id)
     Object.keys(socket.rooms).forEach((room) => {
-      socket.to(room).emit('left channel', {channel: room, user})
+      socket.to(room).emit('user disconnected', stampOutgoing({channel: room}, socket.id))
     })
     users.delete(user)
   })
   socket.on('join channel', (channel) => {
     socket.join(channel)
     socket.emit('joined channel', channelFor(channel))
-    socket.to(channel).emit('new channel user', stampOutgoing({channel}, socket.id))
+    socket.to(channel).emit('user joined channel', stampOutgoing({channel}, socket.id))
   })
   socket.on('leave channel', (channel) => {
     socket.leave(channel)
-    io.to(channel).emit('left channel', stampOutgoing({channel}, socket.id))
+    io.to(channel).emit('user left channel', stampOutgoing({channel}, socket.id))
   })
   socket.on('channel message', (message) => {
     io.to(message.channel).emit('channel message', stampOutgoing({
