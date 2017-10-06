@@ -30,6 +30,14 @@ function partMessage(payload) {
   }
 }
 
+function disconnectMessage(payload) {
+  return {
+    ...payload,
+    type: 'NOTIFICATION_MESSAGE',
+    message: payload.from.name + " disconnected"
+  }
+}
+
 export default (channel = placeholder, action) => {
   switch(action.type) {
     case 'JOINED_CHANNEL':
@@ -52,6 +60,13 @@ export default (channel = placeholder, action) => {
           ...channel,
           users: channel.users.filter((user) => user.id !== action.payload.from.id),
           messages: [...channel.messages, partMessage(action.payload)]
+        }
+    case 'USER_DISCONNECTED':
+      if (action.payload.channel === channel.name)
+        return {
+          ...channel,
+          users: channel.users.filter((user) => user.id !== action.payload.from.id),
+          messages: [...channel.messages, disconnectMessage(action.payload)]
         }
     case 'RECEIVE_MESSAGE':
       if (action.message.channel === channel.name)
