@@ -99,3 +99,7 @@
 .text-input {
   height: 50px;
 }
+
+.notification-message {
+  font-style: italic;
+}
