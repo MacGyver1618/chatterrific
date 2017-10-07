@@ -1,7 +1,7 @@
 import React from 'react'
 
 import TitleBar from './title_bar'
-import ChannelList from './channel_list'
+import ChatList from './chat_list'
 import ChatWindow from './chat_window'
 
 export default () => (
@@ -11,7 +11,7 @@ export default () => (
     </div>
     <div className="row chat-body">
       <div className="col-md-2 blue">
-        <ChannelList />
+        <ChatList />
       </div>
       <div className="col-md-10">
         <ChatWindow />

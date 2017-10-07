@@ -12,7 +12,7 @@ class ChatInput extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.postMessage(this.props.channel.name, this.state.message)
+    this.props.postMessage(this.props.chat, this.state.message)
     this.setState({message: ''})
   }
 
@@ -30,7 +30,7 @@ class ChatInput extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { channel: state.activeChannel }
+  return { chat: state.chats.filter((chat) => chat.selected)[0] }
 }
 
 function mapDispatchToProps(dispatch) {

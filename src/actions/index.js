@@ -47,11 +47,11 @@ export function userDisconnected(payload) {
   }
 }
 
-export function postMessage(channel, message) {
+export function postMessage(chat, message) {
   return {
     type: 'POST_MESSAGE',
     payload: {
-      channel,
+      chat,
       message
     }
   }

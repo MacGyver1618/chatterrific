@@ -16,14 +16,14 @@ class ChatHistory extends React.Component {
     }
   }
 
+  getMessages() {
+    return this.props.messages.map((message) => <Message message={message} key={message.id} />)
+  }
+
   render() {
     return (
       <div className="message-history scrolling">
-        {
-          this.props.messages.map(
-            (message) => <Message message={message} key={message.id} />
-          )
-        }
+        {this.getMessages()}
       </div>
     )
   }

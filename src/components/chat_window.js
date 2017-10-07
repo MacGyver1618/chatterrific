@@ -1,37 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import ChannelTitle from './channel_title'
-import ChatHistory from './chat_history'
-import ChatInput from './chat_input'
-import UserList from './user_list'
+import ChannelWindow from './channel_window'
 
 class ChatWindow extends React.Component {
 
   render() {
-    return (
-      <div className="row full-height">
-        <div className="col-md-9">
-          <div className="row orange channel-title">
-            <ChannelTitle channel={this.props.channel.name}/>
-          </div>
-          <div className="row yellow chat-window">
-            <ChatHistory messages={this.props.channel.messages}/>
-          </div>
-          <div className="row purple text-input">
-            <ChatInput channel={this.props.channel} />
-          </div>
-        </div>
-        <div className="col-md-3 green">
-          <UserList users={this.props.channel.users}/>
-        </div>
-      </div>
-    )
+    if (!this.props.chat) {
+      var placeholderText = "You're not on any channels. Join one from the panel on the left!"
+      return <div className="row full-height">{placeholderText}</div>
+    }
+    return <ChannelWindow channel={this.props.chat} />
   }
+
 }
 
 function mapStateToProps(state) {
-  return { channel: state.activeChannel }
+  return { chat: state.chats.filter((chat) => chat.selected)[0] }
 }
 
 export default connect(mapStateToProps)(ChatWindow)
