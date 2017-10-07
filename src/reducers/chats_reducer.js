@@ -31,16 +31,26 @@ function disconnectMessage(payload) {
   }
 }
 
-function channelWithNewMessage(channel, message) {
-  return {...channel, messages: [...channel.messages, message]}
+function chatWithNewMessage(channel, message) {
+  return {
+    ...channel,
+    messages: [...channel.messages, message],
+    unread: channel.selected ? 0 : channel.unread + 1
+  }
 }
 
 function channelWithNewUser(channel, user) {
-  return {...channel, users: [...channel.users, user]}
+  return {
+    ...channel,
+    users: [...channel.users, user]
+  }
 }
 
 function channelWithoutUser(channel, userToRemove) {
-  return {...channel, users: channel.users.filter((user) => user.id !== userToRemove.id)}
+  return {
+    ...channel,
+    users: channel.users.filter(() => !{id: userToRemove.id})
+  }
 }
 
 function createChannel(channel) {
@@ -72,40 +82,60 @@ function updateChats(chats, filter, newChat) {
   return result
 }
 
+function deselectAll(chats) {
+  return [...chats.map((chat) => ({...chat, selected: false}))]
+}
+
+function transformInArray(arr, matcher, transformation) {
+  var index = _.findIndex(arr, matcher)
+  var result = [...arr]
+  result[index] = transformation(result[index])
+  return result
+}
+
+function selectLast(chats) {
+  if (chats.length > 0)
+    chats[chats.length - 1].selected = true
+  return chats
+}
+
 export default (state = [], action) => {
-  console.log("reducing chats")
-  console.log("state:", state)
-  console.log("action:", action)
   switch(action.type) {
+    case 'SELECT_CHAT':
+      var result = deselectAll(state)
+      Object.assign(_.find(result, {type: action.chat.type, name: action.chat.name}), {selected: true, unread: 0})
+      return result
     case 'JOINED_CHANNEL':
-      return [...state, {...createChannel(action.channel), selected: true}]
-    case 'LEAVE_CHANNEL':
-      return state.filter(() => !({type: 'CHANNEL', name: action.channel}))
+      return [...deselectAll(state), {...createChannel(action.channel), selected: true}]
+    case 'LEAVE_CHAT':
+      return selectLast(state.filter((chat) => !(chat.type == action.chat.type && chat.name == action.chat.name)))
     case 'USER_JOINED_CHANNEL':
-      var channelIndex = _.findIndex(state, { type: 'CHANNEL', name: action.payload.channel })
-      var result = [...state]
-      result[channelIndex] = channelWithNewUser(
-          channelWithNewMessage(state[channelIndex], joinMessage(action.payload)),
-          action.payload.from)
-      return result
+      return transformInArray(state, { type: 'CHANNEL', name: action.payload.channel },
+        (match) => channelWithNewUser(
+          chatWithNewMessage(match, joinMessage(action.payload)),
+          action.payload.from))
     case 'USER_LEFT_CHANNEL':
-      var channelIndex = _.findIndex(state, { type: 'CHANNEL', name: action.payload.channel })
-      var result = [...state]
-      result[channelIndex] = channelWithoutUser(
-          channelWithNewMessage(state[channelIndex], partMessage(action.payload)),
-          action.payload.from)
-      return result
+      return transformInArray(state, { type: 'CHANNEL', name: action.payload.channel },
+        (match) => channelWithoutUser(
+          chatWithNewMessage(match, partMessage(action.payload)),
+          action.payload.from))
     case 'USER_DISCONNECTED':
-      var channelIndex = _.findIndex(state, { type: 'CHANNEL', name: action.payload.channel })
-      var result = [...state]
-      result[channelIndex] = channelWithoutUser(
-          channelWithNewMessage(state[channelIndex], disconnectMessage(action.payload)),
-          action.payload.from)
-      return result
-    case 'RECEIVE_MESSAGE':
-      var channelIndex = _.findIndex(state, { type: 'CHANNEL', name: action.message.channel })
-      var result = [...state]
-      result[channelIndex] = channelWithNewMessage(state[channelIndex], chatMessage(action.message))
+      return transformInArray(state, { type: 'CHANNEL', name: action.payload.channel },
+        (match) => channelWithoutUser(
+          chatWithNewMessage(match, disconnectMessage(action.payload)),
+          action.payload.from))
+    case 'NEW_CHANNEL_MESSAGE':
+      return transformInArray(state, { type: 'CHANNEL', name: action.message.channel },
+        (match) => chatWithNewMessage(match, chatMessage(action.message)))
+    case 'NEW_PRIVATE_MESSAGE':
+      var channelIndex = _.findIndex(state, { type: 'PRIVATE', name: action.message.from })
+      if (channelIndex < 0) {
+        result = [...deselectAll(state), {...createPM(action.message.from), selected: true}]
+        channelIndex = result.length - 1
+      } else {
+        result = [...state]
+      }
+      result[channelIndex] = chatWithNewMessage(result[channelIndex], chatMessage(action.message))
       return result
     default:
       return state

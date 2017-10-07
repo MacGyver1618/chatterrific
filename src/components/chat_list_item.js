@@ -1,10 +1,9 @@
 import React from 'react'
 
-export default ({channel, handleClick, handleLeave}) =>
-  (
-    <li className="list-group-item list-group-item-action">
-      <div className="channel-link pull-left clickable" onClick={() => handleClick(channel)}>#{channel.name}</div>
-      <div className="unread-count pull-right">{channel.unread}</div>
-      <div className="leave-button pull-right clickable" onClick={() => handleLeave(channel)}>Leave</div>
+export default ({chat, handleClick, handleLeave}) => (
+    <li className={"list-group-item list-group-item-action" + (chat.selected ? " active" : "")}>
+      <div className="chat-link pull-left clickable" onClick={(event) => handleClick(chat)}>#{chat.name}</div>
+      <div className="unread-count pull-right">{chat.unread}</div>
+      <div className="leave-button pull-right clickable" onClick={(event) => handleLeave(chat)}>Leave</div>
     </li>
   )

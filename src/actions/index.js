@@ -12,17 +12,17 @@ export function joinedChannel(channel) {
   }
 }
 
-export function leaveChannel(channel) {
+export function leaveChat(chat) {
   return  {
-    type: 'LEAVE_CHANNEL',
-    channel
+    type: 'LEAVE_CHAT',
+    chat
   }
 }
 
-export function selectChannel(channel) {
+export function selectChat(chat) {
   return {
-    type: 'SELECT_CHANNEL',
-    channel
+    type: 'SELECT_CHAT',
+    chat
   }
 }
 
@@ -57,9 +57,9 @@ export function postMessage(chat, message) {
   }
 }
 
-export function receiveMessage(message) {
+export function newChannelMessage(message) {
   return {
-    type: 'RECEIVE_MESSAGE',
+    type: 'NEW_CHANNEL_MESSAGE',
     message
   }
 }
