@@ -1,7 +1,7 @@
 import React from 'react'
 
 import UserListItem from './user_list_item'
-import { nameSort } from '../util/util'
+import { nameSort } from '../../util/sort_util'
 
 export default (props) => {
   return (

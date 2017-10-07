@@ -50,7 +50,9 @@ io.on('connection', (socket) => {
     }
   })
   socket.on('private message', (message) => {
-    socket.to(target).emit('private message', message)
+    socket.to(message.to.id).emit('private message', stampOutgoing({
+      message: message.message
+    }))
   })
 })
 

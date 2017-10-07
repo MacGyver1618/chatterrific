@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux'
 
 import ChatListItem from './chat_list_item'
 import ChannelSelection from './channel_selection'
-import { selectChat, leaveChat } from '../actions/index'
-import { nameSort } from '../util/util'
+import { selectChat, leaveChat } from '../../actions/index'
+import { nameSort } from '../../util/sort_util'
 
 class ChatList extends React.Component {
 

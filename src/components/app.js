@@ -1,8 +1,8 @@
 import React from 'react'
 
 import TitleBar from './title_bar'
-import ChatList from './chat_list'
-import ChatWindow from './chat_window'
+import ChatList from './chat_list/chat_list'
+import ChatWindow from './chat_window/chat_window'
 
 export default () => (
   <div className="container-fluid full-height">

@@ -1,7 +1,7 @@
 import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {postMessage} from '../actions/index'
+import {postMessage} from '../../actions/index'
 
 class ChatInput extends React.Component {
 

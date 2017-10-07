@@ -2,7 +2,7 @@ import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
-import {joinChannel} from '../actions/index'
+import {joinChannel} from '../../actions/index'
 
 class ChannelSelection extends React.Component {
 
