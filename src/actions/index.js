@@ -64,6 +64,13 @@ export function newChannelMessage(message) {
   }
 }
 
+export function createPrivateChat(user) {
+  return {
+    type: 'CREATE_PRIVATE_CHAT',
+    user
+  }
+}
+
 export function gotNewName(user) {
   return {
     type: 'GOT_NEW_NAME',

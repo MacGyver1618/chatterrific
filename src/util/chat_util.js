@@ -47,7 +47,7 @@ export function channelWithNewUser(channel, user) {
 export function channelWithoutUser(channel, userToRemove) {
   return {
     ...channel,
-    users: channel.users.filter(() => !{id: userToRemove.id})
+    users: channel.users.filter((user) => user.id !== userToRemove.id)
   }
 }
 

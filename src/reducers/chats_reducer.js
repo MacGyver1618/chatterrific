@@ -43,8 +43,8 @@ export default (chats = [], action) => {
     case 'NEW_CHANNEL_MESSAGE':
       return transformInArray(chats, { type: 'CHANNEL', name: action.message.channel },
         (match) => chatWithNewMessage(match, chatMessage(action.message)))
-    case 'CREATE_PRIVATE_MESSAGE':
-      return createIfAbsent(chats, { type: 'PRIVATE', name: action.message.from }, createPM(action.message.from))
+    case 'CREATE_PRIVATE_CHAT':
+      return createIfAbsent(chats, { type: 'PRIVATE', name: action.user.id }, createPM(action.user.id))
     case 'NEW_PRIVATE_MESSAGE':
       var matcher = { type: 'PRIVATE', name: action.message.from }
       return transformInArray(
