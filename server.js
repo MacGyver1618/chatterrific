@@ -74,13 +74,14 @@ function channelFor(channel) {
 }
 
 function usersInChannel(channel) {
-  return Object.keys(io.to(channel).sockets)
-    .filter((socketId) => socketInChannel(socketId, channel))
+  var sockets = io.to(channel).sockets
+  return Object.keys(sockets)
+    .filter((socketId) => socketInChannel(sockets[socketId], channel))
     .map((socketId) => userFor(socketId))
 }
 
-function socketInChannel(socketId, channel) {
-  return (socketId) => Object.keys(io.to(socketId).rooms).includes(channel)
+function socketInChannel(socket, channel) {
+  return Object.keys(socket.rooms).includes(channel)
 }
 
 console.log("Listening on port 6680")
