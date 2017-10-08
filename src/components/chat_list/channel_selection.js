@@ -13,7 +13,8 @@ class ChannelSelection extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.joinChannel(this.state.channel)
+    if (this.state.channel.trim())
+      this.props.joinChannel(this.state.channel)
     this.setState({channel: ''})
   }
 

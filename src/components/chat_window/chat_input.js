@@ -12,7 +12,8 @@ class ChatInput extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.postMessage(this.props.chat, this.state.message)
+    if (this.state.message.trim())
+      this.props.postMessage(this.props.chat, this.state.message)
     this.setState({message: ''})
   }
 
