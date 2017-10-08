@@ -26,9 +26,10 @@ io.on('connection', (socket) => {
     users.delete(user)
   })
   socket.on('join channel', (channel) => {
-    socket.join(channel)
-    socket.emit('joined channel', channelFor(channel))
-    socket.to(channel).emit('user joined channel', stampOutgoing({channel}, socket.id))
+    socket.join(channel, () => {
+      socket.emit('joined channel', channelFor(channel))
+      socket.to(channel).emit('user joined channel', stampOutgoing({channel}, socket.id))
+    })
   })
   socket.on('leave channel', (channel) => {
     socket.leave(channel)
@@ -50,9 +51,11 @@ io.on('connection', (socket) => {
     }
   })
   socket.on('private message', (message) => {
-    socket.to(message.to.id).emit('private message', stampOutgoing({
+    var outgoing = stampOutgoing({
       message: message.message
-    }))
+    }, socket.id)
+    socket.emit('private message echo', outgoing)
+    socket.to(message.to.id).emit('private message', outgoing)
   })
 })
 
@@ -66,7 +69,17 @@ function userFor(socketId) {
 }
 
 function channelFor(channel) {
-  return {name: channel, users: Object.keys(io.in(channel).sockets).map((socket) => userFor(socket))}
+  return {name: channel, users: usersInChannel(channel)}
+}
+
+function usersInChannel(channel) {
+  return Object.keys(io.to(channel).sockets)
+    .filter((socketId) => socketInChannel(socketId, channel))
+    .map((socketId) => userFor(socketId))
+}
+
+function socketInChannel(socketId, channel) {
+  return (socketId) => Object.keys(io.to(socketId).rooms).includes(channel)
 }
 
 console.log("Listening on port 6680")
