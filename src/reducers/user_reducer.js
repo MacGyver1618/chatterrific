@@ -6,6 +6,10 @@ export default (state = {}, action) => {
       return {
         error: ("Name " + action.name + " was already taken. Please try another one.")
       }
+    case 'NAME_EMPTY':
+      return {
+        error: ("Name cannot be empty.")
+      }
     default:
       return state
   }

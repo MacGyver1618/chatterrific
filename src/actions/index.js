@@ -92,6 +92,12 @@ export function selectUserName(name) {
   }
 }
 
+export function nameEmpty() {
+  return {
+    type: 'NAME_EMPTY'
+  }
+}
+
 export function nameAlreadyTaken(name) {
   return {
     type: 'NAME_ALREADY_TAKEN',

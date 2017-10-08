@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { selectUserName } from '../actions/index'
+import { selectUserName, nameEmpty } from '../actions/index'
 
 class WelcomeScreen extends React.Component {
 
@@ -13,7 +13,10 @@ class WelcomeScreen extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.selectUserName(this.state.userName)
+    if (this.state.userName.trim())
+      this.props.selectUserName(this.state.userName)
+    else
+      this.props.nameEmpty()
     this.setState({userName: ''})
   }
 
@@ -50,7 +53,7 @@ function mapStateToProps({user}) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ selectUserName }, dispatch)
+  return bindActionCreators({ selectUserName, nameEmpty }, dispatch)
 }
 
 
