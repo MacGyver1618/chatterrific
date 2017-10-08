@@ -43,7 +43,7 @@ class ChatList extends React.Component {
 
   render() {
     return (
-      <div className="scrolling">
+      <div>
         <div className="chat-list-heading">Channels</div>
         {this.getChannels()}
         <ChannelSelection />

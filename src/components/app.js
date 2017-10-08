@@ -15,7 +15,7 @@ class App extends React.Component {
           <TitleBar />
         </div>
         <div className="row chat-body">
-          <div className="col-sm-2 chat-list">
+          <div className="col-sm-2 chat-list scrolling">
             <ChatList />
           </div>
           <div className="col-sm-10">

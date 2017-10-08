@@ -9,17 +9,17 @@ import UserList from './user_list'
 export default (props) => (
   <div className="row full-height">
     <div className="col-md-9">
-      <div className="row orange channel-title">
+      <div className="row channel-title">
         <ChatTitle title={'#' + props.channel.name}/>
       </div>
-      <div className="row yellow chat-window">
+      <div className="row chat-window">
         <ChatHistory messages={props.channel.messages}/>
       </div>
-      <div className="row purple text-input">
+      <div className="row text-input">
         <ChatInput chat={props.channel} />
       </div>
     </div>
-    <div className="col-md-3 green">
+    <div className="col-md-3 scrolling">
       <UserList users={props.channel.users}/>
     </div>
   </div>
