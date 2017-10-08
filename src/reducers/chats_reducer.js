@@ -22,7 +22,8 @@ export default (chats = [], action) => {
     case 'SELECT_CHAT':
       return selectChat(chats, {type: action.chat.type, name: action.chat.name})
     case 'JOINED_CHANNEL':
-      return addAndSelect(chats, createChannel(action.channel))
+      var matcher = {type: 'CHANNEL', name: action.channel.name}
+      return selectChat(createIfAbsent(chats, matcher, createChannel(action.channel)), matcher)
     case 'LEAVE_CHAT':
       return selectLast(chats.filter((chat) => !(chat.type == action.chat.type && chat.name == action.chat.name)))
     case 'USER_JOINED_CHANNEL':
@@ -44,11 +45,12 @@ export default (chats = [], action) => {
       return transformInArray(chats, { type: 'CHANNEL', name: action.message.channel },
         (match) => chatWithNewMessage(match, chatMessage(action.message)))
     case 'CREATE_PRIVATE_CHAT':
-      return createIfAbsent(chats, { type: 'PRIVATE', user: action.user }, createPM(action.user))
+      var matcher = { type: 'PRIVATE', user: action.user }
+      return selectChat(createIfAbsent(chats, matcher, createPM(action.user)), matcher)
     case 'NEW_PRIVATE_MESSAGE':
       var matcher = { type: 'PRIVATE', user: action.message.from }
       return transformInArray(
-        createIfAbsent(chats, matcher, createPM(action.message.from)),
+        selectChat(createIfAbsent(chats, matcher, createPM(action.message.from)), matcher),
         matcher,
         (match) => chatWithNewMessage(match, chatMessage(action.message)))
     case 'PRIVATE_MESSAGE_ECHO':

@@ -95,9 +95,9 @@ export function addAndSelect(chats, newChat) {
 }
 
 export function createIfAbsent(chats, matcher, chat) {
-  if (_.findIndex(chats, matcher) < 0)
-    return addAndSelect(chats, chat)
-  return [...chats]
+  if (_.find(chats, matcher))
+    return [...chats]
+  return [...chats, chat]
 }
 
 export function selectChat(chats, matcher) {
