@@ -1,90 +1,26 @@
+/* Common styles */
+
 .fill-vertical {
   height: 100vh;
 }
 
 .chat-body {
-  height: calc(100% - 50px);
+  height: calc(100% - 70px);
 }
 
 .full-height {
   height: 100%;
 }
 
-.title-bar {
-  background-color: khaki;
-}
-
-.title {
-  color: darkslategrey;
-  text-shadow: 2px 1px 2px darkkhaki;
-}
-
-.chat-list {
-  padding: 20px;
-  background-color: gainsboro;
-}
-
-.chat-list-item {
-  
-}
-
-.scrolling {
-  overflow-y: scroll;
-}
-
-.user-info-box {
-  height: 100%;
-  vertical-align: middle;
-  text-align: right;
-}
-
-.chat-window {
-  height: calc(100% - 100px);
-}
-
 .clickable {
   cursor: pointer;
 }
 
-.channel-title {
-  height: 50px;
+.scrolling {
+  overflow-y: auto;
 }
 
-.message-history {
-  vertical-align: bottom;
-  width: 100%;
-}
-
-.message {
-  background-color: white;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  max-width: 80%;
-}
-
-.timestamp {
-  font-size: 8px;
-  color: #999;
-  margin: 3px;
-}
-
-.user-name {
-  font-weight: bold;
-  margin: 3px;
-}
-
-.message-body {
-  padding: 5px;
-}
-
-.text-input {
-  height: 50px;
-}
-
-.notification-message {
-  font-style: italic;
-}
+/* Welcome page */
 
 .welcome-screen {
   background-color: lemonchiffon;
@@ -107,11 +43,137 @@
   font-weight: 500;
 }
 
+/* Title bar */
+
+.title-bar {
+  background-color: khaki;
+}
+
+.title {
+  color: darkslategrey;
+  text-shadow: 2px 1px 2px darkkhaki;
+}
+
 .title-element {
-  line-height: 70px;
+  line-height: 62px;
 }
 
 .user-info-name {
   font-size: 20px;
   font-weight: bold;
+}
+
+/* Chat list bar */
+
+.chat-list {
+  padding: 20px;
+  background-color: gainsboro;
+  height: 100%;
+  width: 100%;
+}
+
+.chat-list-heading {
+  font-size: larger;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.info-text {
+  color: darkslategrey;
+  font-size: small;
+}
+
+.chat-list-group {
+  list-style: none;
+  padding-left: 14px;
+}
+
+.chat-link {
+  color: darkslategray;
+}
+
+.chat-link:hover {
+  color: darkgray;
+}
+
+.selected-item {
+  font-weight: bold;
+}
+
+.unread-count {
+  margin: 10px;
+  padding: 0px 6px;
+  border-radius: 10px;
+  background-color: darkgray;
+  font-weight: bold;
+}
+
+.leave-button {
+  margin-left: 7px;
+  padding: 0px 3px;
+  border-radius: 2px;
+  font-weight: bolder;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.leave-button:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.channel-selection {
+  width: 100%;
+  margin: 5px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+/* Main chat window */
+
+.chat-window {
+  height: calc(100% - 100px);
+}
+
+.channel-title {
+  height: 50px;
+}
+
+.message-history {
+  vertical-align: bottom;
+  width: 100%;
+}
+
+.text-input {
+  height: 50px;
+}
+
+/* Messages */
+
+.message {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  max-width: 80%;
+}
+
+.timestamp {
+  font-size: 8px;
+  color: #999;
+  margin: 3px;
+}
+
+.message-user-name {
+  font-weight: bold;
+  margin: 3px;
+}
+
+.message-body {
+  padding: 5px;
+}
+
+.notification-message {
+  font-style: italic;
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 
 export default ({chat, handleClick, handleLeave}) => (
-    <li className={"list-group-item list-group-item-action" + (chat.selected ? " active" : "")}>
-      <div className="chat-link pull-left clickable" onClick={handleClick}>#{chat.name}</div>
-      <div className="unread-count pull-right">{chat.unread}</div>
-      <div className="leave-button pull-right clickable" onClick={handleLeave}>Leave</div>
+    <li className={"chat-list-item" + (chat.selected ? " selected-item" : "")}>
+      <span className="chat-link clickable" onClick={handleClick}>#{chat.name}</span>
+      {chat.unread > 0 ? <span className="unread-count">{chat.unread}</span> : ""}
+      <span className="leave-button clickable" onClick={handleLeave}>X</span>
     </li>
   )

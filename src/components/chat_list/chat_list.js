@@ -12,31 +12,43 @@ class ChatList extends React.Component {
   getChannels() {
     if (this.props.channels.length == 0)
       return <span className="info-text">{"You're not on any channels. Join one below!"}</span>
-    return this.props.channels.map(
-        (chat) => <ChatListItem chat={chat} key={chat.name} handleClick={() => this.props.selectChat(chat)} handleLeave={() => this.props.leaveChat(chat)} />
-      )
+    return (
+      <ul className="chat-list-group">
+        {this.props.channels.map((chat) => (
+          <ChatListItem
+            chat={chat}
+            key={chat.name}
+            handleClick={() => this.props.selectChat(chat)}
+            handleLeave={() => this.props.leaveChat(chat)}
+          />))}
+      </ul>
+    )
   }
 
   getPrivateMessages() {
     if (this.props.privateMessages.length == 0)
       return <span className="info-text">{"You don't have any private messages."}</span>
-    return this.props.privateMessages.map(
-        (chat) => <ChatListItem chat={chat} key={chat.name} handleClick={() => this.props.selectChat(chat)} handleLeave={() => this.props.leaveChat(chat)} />
-      )
+    return (
+      <ul className="chat-list-group">
+        {this.props.privateMessages.map((chat) => (
+          <ChatListItem
+            chat={chat}
+            key={chat.name}
+            handleClick={() => this.props.selectChat(chat)}
+            handleLeave={() => this.props.leaveChat(chat)}
+          />))}
+      </ul>
+    )
   }
 
   render() {
     return (
-      <div>
-        <h3>Channels</h3>
-        <ul className="list-group">
-          {this.getChannels()}
-        </ul>
+      <div className="scrolling">
+        <div className="chat-list-heading">Channels</div>
+        {this.getChannels()}
         <ChannelSelection />
-        <h3>Private messages</h3>
-        <ul className="list-group">
-          {this.getPrivateMessages()}
-        </ul>
+        <div className="chat-list-heading">Private messages</div>
+        {this.getPrivateMessages()}
       </div>
     )
   }
