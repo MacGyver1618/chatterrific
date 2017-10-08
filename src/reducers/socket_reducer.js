@@ -4,6 +4,9 @@ var placeholder = createSocket()
 
 export default (socket = placeholder, action) => {
   switch (action.type) {
+    case 'SELECT_USER_NAME':
+      socket.emit('select name', action.name)
+      break
     case 'JOIN_CHANNEL':
       socket.emit('join channel', action.channel)
       break

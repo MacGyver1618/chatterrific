@@ -85,6 +85,20 @@ export function privateMessageEcho(message) {
   }
 }
 
+export function selectUserName(name) {
+  return {
+    type: 'SELECT_USER_NAME',
+    name
+  }
+}
+
+export function nameAlreadyTaken(name) {
+  return {
+    type: 'NAME_ALREADY_TAKEN',
+    name
+  }
+}
+
 export function gotNewName(user) {
   return {
     type: 'GOT_NEW_NAME',

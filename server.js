@@ -41,13 +41,13 @@ io.on('connection', (socket) => {
       channel: message.channel
     }, socket.id))
   })
-  socket.on('change name', (name) => {
+  socket.on('select name', (name) => {
     if (users[name])
-      socket.emit('name error', 'name already taken')
+      socket.emit('name taken', name)
     else {
       users.delete(userFor(socket.id))
       users[name] = socket.id
-      socket.emit('changed name', userFor(socket.id))
+      socket.emit('name accepted', userFor(socket.id))
     }
   })
   socket.on('private message', (message) => {
