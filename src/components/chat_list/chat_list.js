@@ -13,7 +13,7 @@ class ChatList extends React.Component {
     if (this.props.channels.length == 0)
       return <span className="info-text">{"You're not on any channels. Join one below!"}</span>
     return this.props.channels.map(
-        (chat) => <ChatListItem chat={chat} key={chat.name} handleClick={(event) => this.props.selectChat(chat)} handleLeave={(event) => this.props.leaveChat(chat)} />
+        (chat) => <ChatListItem chat={chat} key={chat.name} handleClick={() => this.props.selectChat(chat)} handleLeave={() => this.props.leaveChat(chat)} />
       )
   }
 
@@ -21,7 +21,7 @@ class ChatList extends React.Component {
     if (this.props.privateMessages.length == 0)
       return <span className="info-text">{"You don't have any private messages."}</span>
     return this.props.privateMessages.map(
-        (chat) => <ChatListItem chat={chat} key={chat.name} handleClick={(event) => this.props.selectChat(chat)} handleLeave={(event) => this.props.leaveChat(chat)} />
+        (chat) => <ChatListItem chat={chat} key={chat.name} handleClick={() => this.props.selectChat(chat)} handleLeave={() => this.props.leaveChat(chat)} />
       )
   }
 

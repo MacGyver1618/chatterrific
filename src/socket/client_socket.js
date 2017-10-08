@@ -9,7 +9,8 @@ import {
   userJoinedChannel,
   userLeftChannel,
   userDisconnected,
-  newPrivateMessage
+  newPrivateMessage,
+  privateMessageEcho
 } from '../actions/index'
 
 export default function createSocket() {
@@ -17,6 +18,7 @@ export default function createSocket() {
   socket.on('changed name', (user) => store.dispatch(gotNewName(user)))
   socket.on('channel message', (message) => store.dispatch(newChannelMessage(message)))
   socket.on('private message', (message) => store.dispatch(newPrivateMessage(message)))
+  socket.on('private message echo', (message) => store.dispatch(privateMessageEcho(message)))
   socket.on('joined channel', (channel) => store.dispatch(joinedChannel(channel)))
   socket.on('user joined channel', (payload) => store.dispatch(userJoinedChannel(payload)))
   socket.on('user left channel', (payload) => store.dispatch(userLeftChannel(payload)))

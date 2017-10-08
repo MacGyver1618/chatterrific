@@ -29,11 +29,11 @@ export function disconnectMessage(payload) {
   }
 }
 
-export function chatWithNewMessage(channel, message) {
+export function chatWithNewMessage(chat, message) {
   return {
-    ...channel,
-    messages: [...channel.messages, message],
-    unread: channel.selected ? 0 : channel.unread + 1
+    ...chat,
+    messages: [...chat.messages, message],
+    unread: chat.selected ? 0 : chat.unread + 1
   }
 }
 

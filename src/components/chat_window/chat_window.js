@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import ChannelWindow from './channel_window'
+import PrivateMessageWindow from './private_message_window'
 
 class ChatWindow extends React.Component {
 
@@ -10,7 +11,12 @@ class ChatWindow extends React.Component {
       var placeholderText = "You're not on any channels. Join one from the panel on the left!"
       return <div className="row full-height">{placeholderText}</div>
     }
-    return <ChannelWindow channel={this.props.chat} />
+    switch (this.props.chat.type) {
+      case 'CHANNEL':
+        return <ChannelWindow channel={this.props.chat} />
+      case 'PRIVATE':
+        return <PrivateMessageWindow chat={this.props.chat} />
+    }
   }
 
 }

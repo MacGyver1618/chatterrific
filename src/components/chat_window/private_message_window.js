@@ -6,21 +6,18 @@ import ChatHistory from './chat_history'
 import ChatInput from './chat_input'
 import UserList from './user_list'
 
-export default (props) => (
+export default ({chat}) => (
   <div className="row full-height">
-    <div className="col-md-9">
+    <div className="col-md-12">
       <div className="row orange channel-title">
-        <ChatTitle title={'#' + props.channel.name}/>
+        <ChatTitle title={"Private chat with user " + chat.user.name}/>
       </div>
       <div className="row yellow chat-window">
-        <ChatHistory messages={props.channel.messages}/>
+        <ChatHistory messages={chat.messages}/>
       </div>
       <div className="row purple text-input">
-        <ChatInput chat={props.channel} />
+        <ChatInput chat={chat} />
       </div>
-    </div>
-    <div className="col-md-3 green">
-      <UserList users={props.channel.users}/>
     </div>
   </div>
 )

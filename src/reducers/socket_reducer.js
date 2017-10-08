@@ -12,7 +12,14 @@ export default (socket = placeholder, action) => {
         socket.emit('leave channel', action.chat.name)
       break
     case 'POST_MESSAGE':
-      socket.emit('channel message', {message: action.payload.message, channel: action.payload.chat.name})
+      switch (action.payload.chat.type) {
+        case 'CHANNEL':
+          socket.emit('channel message', {message: action.payload.message, channel: action.payload.chat.name})
+          break
+        case 'PRIVATE':
+          socket.emit('private message', {message: action.payload.message, to: action.payload.chat.user})
+          break
+        }
       break
   }
   return socket

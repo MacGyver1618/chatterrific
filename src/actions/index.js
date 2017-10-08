@@ -71,6 +71,20 @@ export function createPrivateChat(user) {
   }
 }
 
+export function newPrivateMessage(message) {
+  return {
+    type: 'NEW_PRIVATE_MESSAGE',
+    message
+  }
+}
+
+export function privateMessageEcho(message) {
+  return {
+    type: 'PRIVATE_MESSAGE_ECHO',
+    message
+  }
+}
+
 export function gotNewName(user) {
   return {
     type: 'GOT_NEW_NAME',

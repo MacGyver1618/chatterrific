@@ -14,7 +14,7 @@ class UserList extends React.Component {
         <ul className="list-group">
           {
             this.props.users.sort(nameSort).map(
-              (user) => <UserListItem user={user} key={user.id} handleClick={(event) => this.props.createPrivateChat(user)}/>
+              (user) => <UserListItem user={user} key={user.id} handleClick={() => this.props.createPrivateChat(user)}/>
             )
           }
         </ul>

@@ -52,6 +52,7 @@ io.on('connection', (socket) => {
   })
   socket.on('private message', (message) => {
     var outgoing = stampOutgoing({
+      to: message.to,
       message: message.message
     }, socket.id)
     socket.emit('private message echo', outgoing)
