@@ -12,6 +12,10 @@
   height: 100%;
 }
 
+.full-width {
+  width: 100%;
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -63,7 +67,7 @@
   font-weight: bold;
 }
 
-/* Chat list bar */
+/* Chat list pane */
 
 .chat-list {
   padding: 20px;
@@ -122,12 +126,12 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-.channel-selection {
+.channel-selection-input {
   width: 100%;
   margin: 5px 0px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
-  padding: 4px;
+  padding: 10px;
 }
 
 /* Main chat window */
@@ -179,6 +183,19 @@
 }
 
 /* Chat input box */
+
+.chat-input-box {
+  width: 80%;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.chat-submit {
+  width: 20%;
+  height: 100%;
+}
 
 /* User list */
 
