@@ -24,17 +24,21 @@ class WelcomeScreen extends React.Component {
 
   render() {
     return(
-      <div className="jumbotron">
-        <h1 className="display-3">Welcome to Chatterriffic</h1>
+      <div className="jumbotron text-center welcome-screen">
+        <h1 className="display-3 welcome-text">Welcome to Chatterriffic</h1>
         <p className="lead">To get started, enter you username below.</p>
-        <form className="form-inline" onSubmit={(event) => this.handleSubmit(event)}>
-          <div className="form-group">
-            <input type="text" className="form-control" placeholder="Your nickname" value={this.state.userName} onChange={(event) => this.setState({userName: event.target.value})}/>
-            <input type="submit" className="btn" value="Join" />
+        <div className="container">
+          <div className="row justify-content-md-center">
+            <form className="form form-inline" onSubmit={(event) => this.handleSubmit(event)}>
+              <div className="form-group">
+                <input type="text" className="form-control" placeholder="Your nickname" value={this.state.userName} onChange={(event) => this.setState({userName: event.target.value})}/>
+                <input type="submit" className="btn welcome-button" value="Join" />
+              </div>
+            </form>
           </div>
-        </form>
-        <div className="error-message">
-          <p>{this.errorMessage()}</p>
+          <div className="row error-message justify-content-md-center">
+            <p>{this.errorMessage()}</p>
+          </div>
         </div>
       </div>
     )

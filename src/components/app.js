@@ -15,10 +15,10 @@ class App extends React.Component {
           <TitleBar />
         </div>
         <div className="row chat-body">
-          <div className="col-md-2 blue">
+          <div className="col-sm-2">
             <ChatList />
           </div>
-          <div className="col-md-10">
+          <div className="col-sm-10">
             <ChatWindow />
           </div>
         </div>
