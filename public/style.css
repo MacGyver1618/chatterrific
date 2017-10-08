@@ -177,3 +177,34 @@
 .notification-message {
   font-style: italic;
 }
+
+/* Chat input box */
+
+/* User list */
+
+.user-list {
+  padding: 20px;
+  background-color: antiquewhite;
+  height: 100%;
+  width: 100%;
+}
+
+.user-list-heading {
+  font-size: larger;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.user-list-group {
+  list-style: none;
+  padding-left: 14px;
+}
+
+.user-list-item {
+  color: darkslategray;
+}
+
+.user-list-item:hover {
+  color: darkgray;
+}

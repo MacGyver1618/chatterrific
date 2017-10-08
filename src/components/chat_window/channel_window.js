@@ -19,7 +19,7 @@ export default (props) => (
         <ChatInput chat={props.channel} />
       </div>
     </div>
-    <div className="col-md-3 scrolling">
+    <div className="col-md-3 scrolling user-list">
       <UserList users={props.channel.users}/>
     </div>
   </div>
