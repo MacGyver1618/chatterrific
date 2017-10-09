@@ -1,7 +1,11 @@
 {
   "name": "chatterrific",
   "version": "0.0.1",
-  "description": "Webchat client with React, Redux and ",
+  "description": "Webchat with React, Redux, socket.io, and node.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MacGyver1618/chatterrific"
+  },
   "main": "server.js",
   "author": "Joni Malén",
   "dependencies": {
