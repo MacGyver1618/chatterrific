@@ -1,8 +1,8 @@
 {
-  "name": "react-chat-client",
+  "name": "chatterrific",
   "version": "0.0.1",
-  "description": "Webchat client with React and Redux",
-  "main": "index.js",
+  "description": "Webchat client with React, Redux and ",
+  "main": "server.js",
   "author": "Joni Malén",
   "dependencies": {
     "express": "^4.15.5",
@@ -24,8 +24,5 @@
     "babel-preset-stage-1": "^6.24.1",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2"
-  },
-  "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot"
   }
 }
