@@ -1,5 +1,12 @@
 import _ from 'lodash'
 
+import  {
+  chatMessage,
+  joinMessage,
+  partMessage,
+  disconnectMessage
+} from '../util/message_util'
+
 import {
   selectChat,
   addAndSelect,
@@ -10,11 +17,7 @@ import {
   channelWithNewUser,
   channelWithoutUser,
   chatWithNewMessage,
-  createIfAbsent,
-  chatMessage,
-  joinMessage,
-  partMessage,
-  disconnectMessage
+  createIfAbsent
 } from '../util/chat_util'
 
 export default (chats = [], action) => {
@@ -49,10 +52,11 @@ export default (chats = [], action) => {
       return selectChat(createIfAbsent(chats, matcher, createPM(action.user)), matcher)
     case 'NEW_PRIVATE_MESSAGE':
       var matcher = { type: 'PRIVATE', user: action.message.from }
-      return transformInArray(
-        selectChat(createIfAbsent(chats, matcher, createPM(action.message.from)), matcher),
+      var chatIsOld = _.find(chats, matcher)
+      var result = transformInArray(createIfAbsent(chats, matcher, createPM(action.message.from)),
         matcher,
         (match) => chatWithNewMessage(match, chatMessage(action.message)))
+      return chatIsOld ? result : selectChat(result, matcher)
     case 'PRIVATE_MESSAGE_ECHO':
       return transformInArray(chats, { type: 'PRIVATE', user: action.message.to },
         (match) => chatWithNewMessage(match, chatMessage(action.message)))

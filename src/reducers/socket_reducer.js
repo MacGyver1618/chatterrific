@@ -8,7 +8,7 @@ export default (socket = placeholder, action) => {
       socket.emit('select name', action.name)
       break
     case 'JOIN_CHANNEL':
-      socket.emit('join channel', action.channel)
+      socket.emit('join channel', action.channel.toLowerCase())
       break
     case 'LEAVE_CHAT':
       if (action.chat.type == 'CHANNEL')

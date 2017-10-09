@@ -1,34 +1,3 @@
-export function chatMessage(payload) {
-  return {
-    ...payload,
-    type: 'CHAT_MESSAGE'
-  }
-}
-
-export function joinMessage(payload) {
-  return {
-    ...payload,
-    type: 'NOTIFICATION_MESSAGE',
-    message: payload.from.name + " joined channel " + payload.channel
-  }
-}
-
-export function partMessage(payload) {
-  return {
-    ...payload,
-    type: 'NOTIFICATION_MESSAGE',
-    message: payload.from.name + " left channel " + payload.channel
-  }
-}
-
-export function disconnectMessage(payload) {
-  return {
-    ...payload,
-    type: 'NOTIFICATION_MESSAGE',
-    message: payload.from.name + " disconnected"
-  }
-}
-
 export function chatWithNewMessage(chat, message) {
   return {
     ...chat,
@@ -94,10 +63,10 @@ export function addAndSelect(chats, newChat) {
   return [...deselectAll(chats), {...newChat, selected: true}]
 }
 
-export function createIfAbsent(chats, matcher, chat) {
-  if (_.find(chats, matcher))
-    return [...chats]
-  return [...chats, chat]
+export function createIfAbsent(collection, matcher, element) {
+  if (_.find(collection, matcher))
+    return [...collection]
+  return [...collection, element]
 }
 
 export function selectChat(chats, matcher) {

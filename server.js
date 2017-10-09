@@ -26,9 +26,11 @@ io.on('connection', (socket) => {
     users.delete(user)
   })
   socket.on('join channel', (channel) => {
+    var alreadyThere = Object.keys(socket.rooms).includes(channel)
     socket.join(channel, () => {
       socket.emit('joined channel', channelFor(channel))
-      socket.to(channel).emit('user joined channel', stampOutgoing({channel}, socket.id))
+      if (!alreadyThere)
+        socket.to(channel).emit('user joined channel', stampOutgoing({channel}, socket.id))
     })
   })
   socket.on('leave channel', (channel) => {
