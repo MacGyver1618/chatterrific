@@ -167,7 +167,7 @@
 /* Messages */
 
 .message {
-  background-color: white;
+  background-color: hsla(46, 100%, 50%, 0.1);
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
@@ -175,7 +175,7 @@
 }
 
 .timestamp {
-  font-size: 11px;
+  font-size: 10pt;
   color: #999;
   margin: 3px;
 }
