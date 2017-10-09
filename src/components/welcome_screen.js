@@ -34,7 +34,7 @@ class WelcomeScreen extends React.Component {
           <div className="row justify-content-md-center">
             <form className="form form-inline" onSubmit={(event) => this.handleSubmit(event)}>
               <div className="form-group">
-                <input type="text" className="form-control" placeholder="Your nickname" value={this.state.userName} onChange={(event) => this.setState({userName: event.target.value})}/>
+                <input type="text" className="form-control" placeholder="Your nickname" value={this.state.userName} onChange={(event) => this.setState({userName: event.target.value})} autoFocus />
                 <input type="submit" className="btn welcome-button" value="Join" />
               </div>
             </form>

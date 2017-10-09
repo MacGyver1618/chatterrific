@@ -9,13 +9,13 @@ import UserList from './user_list'
 export default ({chat}) => (
   <div className="row full-height">
     <div className="col-md-12">
-      <div className="row orange channel-title">
+      <div className="row chat-title-row">
         <ChatTitle title={"Private chat with user " + chat.user.name}/>
       </div>
-      <div className="row yellow chat-window">
+      <div className="row chat-window">
         <ChatHistory messages={chat.messages}/>
       </div>
-      <div className="row purple text-input">
+      <div className="row text-input">
         <ChatInput chat={chat} />
       </div>
     </div>

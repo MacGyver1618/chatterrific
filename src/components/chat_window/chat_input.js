@@ -20,8 +20,8 @@ class ChatInput extends React.Component {
   render() {
     return (
       <form className="form-inline full-width full-height" onSubmit={(event) => this.handleSubmit(event)}>
-        <input type="text" className="chat-input-box" placeholder="Type your message here..." value={this.state.message} onChange={(event) => this.setState({message: event.target.value})}/>
-        <input type="submit" className="btn chat-submit clickable" value="Post message" />
+        <input type="text" className="chat-input-box" placeholder="Type your message here..." value={this.state.message} onChange={(event) => this.setState({message: event.target.value})} autoFocus />
+        <input type="submit" className="btn chat-submit clickable" value="Send" />
       </form>
     )
   }

@@ -9,7 +9,7 @@ class TitleBar extends React.Component {
       <div className="title-bar col-md-12">
         <div className="row">
           <div className="pull-left col-md-9">
-            <h1 className="title-element title align-middle">Chatterriffic</h1>
+            <h1 className="title-element title align-middle display-4">Chatterriffic</h1>
           </div>
           <div className="pull-right col-sm-3 text-right">
             <UserInfoBox user={this.props.user} />

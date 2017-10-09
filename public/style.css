@@ -106,10 +106,11 @@
 }
 
 .unread-count {
-  margin: 10px;
+  margin-left: 7px;
   padding: 0px 6px;
   border-radius: 10px;
-  background-color: darkgray;
+  color: aliceblue;
+  background-color: lightseagreen;
   font-weight: bold;
 }
 
@@ -123,7 +124,7 @@
 
 .leave-button:hover {
   background-color: rgba(0, 0, 0, 0.5);
-  color: rgba(255, 255, 255, 0.5);
+  color: sandybrown;
 }
 
 .channel-selection-input {
@@ -140,8 +141,18 @@
   height: calc(100% - 100px);
 }
 
-.channel-title {
+.chat-placeholder-content {
+  top: 20%;
+  position: relative;
+}
+
+.chat-title-row {
   height: 50px;
+  padding: 10px 20px;
+}
+
+.chat-title {
+
 }
 
 .message-history {
@@ -164,7 +175,7 @@
 }
 
 .timestamp {
-  font-size: 8px;
+  font-size: 11px;
   color: #999;
   margin: 3px;
 }
@@ -195,6 +206,10 @@
 .chat-submit {
   width: 20%;
   height: 100%;
+  background-color: sandybrown;
+  color: aliceblue;
+  text-transform: uppercase;
+  font-weight: 400;
 }
 
 /* User list */
@@ -214,8 +229,12 @@
 }
 
 .user-list-group {
-  list-style: none;
   padding-left: 14px;
+  margin-left: 14px;
+}
+
+.user-list-group:first-child {
+  margin-top: 7px;
 }
 
 .user-list-item {

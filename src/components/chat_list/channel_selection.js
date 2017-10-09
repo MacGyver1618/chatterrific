@@ -23,7 +23,7 @@ class ChannelSelection extends React.Component {
       <div className="layout-wrapper">
         <div className="chat-list-heading">Join channel</div>
         <form className="form-inline" onSubmit={(event) => this.handleSubmit(event)}>
-          <input type="text" className="channel-selection-input" placeholder="Join new channel" value={this.state.channel} onChange={(event) => this.setState({channel: event.target.value})} />
+          <input type="text" className="channel-selection-input" placeholder="Join new channel" value={this.state.channel} onChange={(event) => this.setState({channel: event.target.value})} autoFocus />
         </form>
       </div>
     )

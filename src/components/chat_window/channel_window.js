@@ -9,7 +9,7 @@ import UserList from './user_list'
 export default (props) => (
   <div className="row full-height">
     <div className="col-md-9">
-      <div className="row channel-title">
+      <div className="row chat-title-row">
         <ChatTitle title={'#' + props.channel.name}/>
       </div>
       <div className="row chat-window">
