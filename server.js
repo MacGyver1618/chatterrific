@@ -3,9 +3,6 @@ var http = require('http')
 var socketIo = require('socket.io')
 var uuid = require('uuid/v4')
 var _ = require('lodash')
-var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var webpackConfig = require('./webpack.config.js')
 
 var users = new Map()
 var app = express()
@@ -13,9 +10,11 @@ var server = http.Server(app)
 var io = socketIo(server)
 
 app.use(express.static(__dirname + '/public'))
-app.use(webpackDevMiddleware(webpack(webpackConfig)))
+app.use(express.static(__dirname + '/bundle'))
 
-server.listen(6680)
+const port = process.env.PORT || 6680
+
+server.listen(port)
 
 io.on('connection', (socket) => {
   socket.on('disconnecting', (reason) => {
@@ -86,4 +85,4 @@ function socketInChannel(socket, channel) {
   return Object.keys(socket.rooms).includes(channel)
 }
 
-console.log("Listening on port 6680")
+console.log("Listening on port", port)

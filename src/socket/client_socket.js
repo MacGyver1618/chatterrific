@@ -14,8 +14,10 @@ import {
   privateMessageEcho
 } from '../actions/index'
 
+var SERVER_URL = process.env.SERVER_URL
+
 export default function createSocket() {
-  var socket = io.connect('http://192.168.0.108:6680')
+  var socket = io.connect(SERVER_URL)
   socket.on('name taken', (name) => store.dispatch(nameAlreadyTaken(name)))
   socket.on('name accepted', (user) => store.dispatch(gotNewName(user)))
   socket.on('channel message', (message) => store.dispatch(newChannelMessage(message)))
